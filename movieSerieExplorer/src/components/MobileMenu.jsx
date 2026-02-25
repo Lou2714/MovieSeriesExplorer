@@ -6,7 +6,7 @@ const MobileMenu = ({ isOpen, onCloseMenu }) =>{
 
 
     return(
-        <div className= {`bg-Shark-800 text-Wild-Sand-100 absolute inset-y-0 right-0 w-2/5 h-screen p-2 
+        <div className= {`bg-Shark-800 text-Wild-Sand-100 fixed inset-y-0 right-0 w-2/5 h-screen p-2
             transform transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "translate-x-full"}`}>
             <div className="pt-2">
                 <button className="text-lg bg-Shark-800 p-1 cursor-pointer active:bg-Shark-700 hover:bg-Shark-700"

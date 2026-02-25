@@ -18,6 +18,7 @@ const Navbar = () =>{
                 <FiMenu className="text-Wild-Sand-100 text-xl"/>
             </button>
             <MobileMenu isOpen={isOpen} onCloseMenu={handlerMenu} />
+            {/* {isOpen && <MobileMenu isOpen={isOpen} onCloseMenu={handlerMenu} />} */}
         </nav>
     )
 
