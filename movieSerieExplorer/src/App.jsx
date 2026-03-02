@@ -1,14 +1,12 @@
-import SearchBar from "./components/SearchBar";
-import Navbar from "./components/Navbar";
-import MobileMenu from "./components/MobileMenu";
+import SearchPage from "./pages/Search"
+import AppRoutes from "./routes/Routes"
 
 function App() {
 
   return (
     <div className="font-DMSans bg-Shark-800 min-h-dvh">
-      <Navbar />
-      <SearchBar/>
-      {/* <MobileMenu /> */}
+      {/* <SearchPage /> */}
+      <AppRoutes />
     </div>
   )
 }
