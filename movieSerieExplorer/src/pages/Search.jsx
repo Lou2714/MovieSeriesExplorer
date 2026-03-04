@@ -1,5 +1,5 @@
 import SearchBar from "../components/SearchBar";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Navbar/Navbar";
 import PosterCard from "../components/PosterCard";
 
 const SearchPage = () =>{

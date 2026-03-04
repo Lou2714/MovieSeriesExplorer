@@ -43,33 +43,7 @@ const MobileMenu = ({ isOpen, onCloseMenu }) =>{
                     <FiX />
                 </button>
             </div>
-            {/* Esto tiene que ser componenete como tal, ya veremos como lo manejo */}
             <div className="flex flex-col gap-3 mt-10">
-                {/* <div className="flex flex-row items-center gap-1 text-lg rounded-md p-1
-                        active:bg-Shark-700 hover:bg-Shark-700 cursor-pointer hover:font-semibold active:font-semibold">
-                    <FiHome/>
-                    <p>Inicio</p>
-                </div>
-                <div className="flex flex-row items-center gap-1 text-lg rounded-md p-1
-                        active:bg-Shark-700 hover:bg-Shark-700 active:font-semibold cursor-pointer hover:font-semibold">
-                    <BiMoviePlay />
-                    <p>Películas</p>
-                </div>
-                <div className="flex flex-row items-center gap-1 text-lg rounded-md p-1
-                        active:bg-Shark-700 hover:bg-Shark-700 active:font-semibold cursor-pointer hover:font-semibold">
-                    <FiTv />
-                    <p>Series</p>
-                </div>
-                <div className="flex flex-row items-center gap-1 text-lg rounded-md p-1
-                        active:bg-Shark-700 hover:bg-Shark-700 active:font-semibold cursor-pointer hover:font-semibold">
-                    <FiSearch />
-                    <p>Buscar</p>
-                </div>
-                <div className="flex flex-row items-center gap-1 text-lg rounded-md p-1
-                        active:bg-Shark-700 hover:bg-Shark-700 active:font-semibold cursor-pointer hover:font-semibold">
-                    <FiBookmark />
-                    <p>Mi lista</p>
-                </div> */}
                 {menuItems.map((item, index) => 
                     (
                         <NavItemsLinks 
