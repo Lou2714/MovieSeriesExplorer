@@ -27,7 +27,7 @@ const MediaCarousel = () =>{
 
     return (
         <div className="embla relative">
-            <div className="overflow-hidden px-3" ref={emblaRef}>
+            <div className="overflow-hidden  px-3" ref={emblaRef}>
                 <div className="flex touch-pan-x touch-pinch-zoom">
                     <div className="flex-initial basis-full">
                         <PosterCard />

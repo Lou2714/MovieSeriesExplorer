@@ -12,7 +12,7 @@ const Navbar = () =>{
     }
 
     return(
-        <nav className="bg-Shark-800 relative flex flex-row justify-end p-4">
+        <nav className="bg-Shark-800 relative flex flex-row justify-end px-4 pt-4 pb-2">
             <button className="bg-Shark-800 p-1 cursor-pointer active:bg-Shark-700 hover:bg-Shark-700"
                 onClick={handlerMenu}>
                 <FiMenu className="text-Wild-Sand-100 text-xl"/>
