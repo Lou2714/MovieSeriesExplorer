@@ -7,7 +7,7 @@ const SearchPage = () =>{
         <div>
             <Navbar />
             <SearchBar/>
-            <div className="flex flex-row flex-wrap gap-3 justify-center-safe py-10 ">
+            <div className="flex flex-row flex-wrap gap-y-2 justify-center-safe py-10 ">
                 <PosterCard />
                 <PosterCard />
                 <PosterCard />
