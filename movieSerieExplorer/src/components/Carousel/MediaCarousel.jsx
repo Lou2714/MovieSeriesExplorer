@@ -4,7 +4,7 @@ import { GrPrevious, GrNext } from "react-icons/gr";
 
 import { useState, useEffect } from 'react'
 
-const MediaCarousel = ({ mediaResource, imageUrl }) =>{
+const MediaCarousel = ({ mediaResource }) =>{
     const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: 'start' })
     const [prevButtonDisabled, setPrevButtonDisabled] = useState(true)
     const [nextButtonDisabled, setNextButtonDisabled] = useState(true)

@@ -1,11 +1,11 @@
 import MediaCarousel from "./Carousel/MediaCarousel";
 
-const CategorySection = ({ title, mediaResource, imageUrl }) =>{
+const CategorySection = ({ title, mediaResource }) =>{
     return(
         <div>
             <div className="text-Wild-Sand-100 font-semibold py-3">
                 <h1 className="px-4 pb-2">{title}</h1>
-                <MediaCarousel imageUrl={imageUrl} mediaResource={mediaResource} />
+                <MediaCarousel mediaResource={mediaResource} />
             </div>
         </div>
     )
