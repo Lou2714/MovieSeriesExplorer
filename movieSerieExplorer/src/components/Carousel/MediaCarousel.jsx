@@ -4,7 +4,7 @@ import { GrPrevious, GrNext } from "react-icons/gr";
 
 import { useState, useEffect } from 'react'
 
-const MediaCarousel = () =>{
+const MediaCarousel = ({ mediaResource, imageUrl }) =>{
     const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: 'start' })
     const [prevButtonDisabled, setPrevButtonDisabled] = useState(true)
     const [nextButtonDisabled, setNextButtonDisabled] = useState(true)
@@ -23,39 +23,19 @@ const MediaCarousel = () =>{
         toggleButtonsDisabled(emblaApi)
         emblaApi.on('reinit', toggleButtonsDisabled)
         emblaApi.on('select', toggleButtonsDisabled)
-    }, [emblaApi])
+    }, [emblaApi, mediaResource])
 
     return (
         <div className="embla relative">
             <div className="overflow-hidden  px-3" ref={emblaRef}>
                 <div className="flex touch-pan-x touch-pinch-zoom">
-                    <div className="flex-initial basis-full">
-                        <PosterCard />
-                    </div>
-                    <div className="flex-initial basis-full">
-                        <PosterCard />
-                    </div>
-                    <div className="flex-initial basis-full">
-                        <PosterCard />
-                    </div>
-                    <div className="flex-initial basis-full">
-                        <PosterCard />
-                    </div>
-                    <div className="flex-initial basis-full">
-                        <PosterCard />
-                    </div>
-                    <div className="flex-initial basis-full">
-                        <PosterCard />
-                    </div>
-                    <div className="flex-initial basis-full">
-                        <PosterCard />
-                    </div>
-                    <div className="flex-initial basis-full">
-                        <PosterCard />
-                    </div>
-                    <div className="flex-initial basis-full">
-                        <PosterCard />
-                    </div>
+                        {
+                            mediaResource?.map((element) =>(
+                                <div className="flex-initial basis-full" key={element.id}>
+                                    <PosterCard key={element.id} poster={`https://image.tmdb.org/t/p/original${element.poster_path}`} />
+                                </div>
+                            ))
+                        }
                 </div>
             </div>
             <button className={`embla__prev absolute inset-y-0 left-0 text-xl active:bg-Shark-800 active:opacity-50 

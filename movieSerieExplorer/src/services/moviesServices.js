@@ -26,6 +26,19 @@ export const getTopRatedMovies = (page, language) =>{
     const request = fetch(`https://api.themoviedb.org/3/movie/top_rated?language=${language}&page=${page}`, options);
     const response = request.then((res) =>{
         return res.json();
+    }).then((res) =>{
+        return res.results
     })
+    return response;
+}
+
+export const discoverMoviesByGenreId = (genreId, language, page) =>{
+    const request = fetch(`https://api.themoviedb.org/3/discover/movie?language=${language}&page=${page}&with_genres=${genreId}&sort_by=popularity.desc`, options);
+    const response = request.then((res) =>{
+        return res.json();
+    }).then((res) =>{
+        return res.results
+    })
+    
     return response;
 }
