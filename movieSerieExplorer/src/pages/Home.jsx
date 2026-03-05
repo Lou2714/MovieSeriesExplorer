@@ -14,32 +14,32 @@ const Home = () => {
     const [mysterySeries, setMysterySeries] = useState(null);
 
     useEffect(() =>{
-        showTopRatedMovies();
-        showPopularSeries();
-        showMoviesByGenre();
-        showSeriesByGenre();
+        showTopRatedMovies(1);
+        showPopularSeries(2);
+        showMoviesByGenre(27);
+        showSeriesByGenre(9648);
     },[topRatedMovies,popularSeries, terrorMovies, mysterySeries]);
 
-    const showTopRatedMovies = () =>{
-        getTopRatedMovies(1,"es").then((res) =>{
+    const showTopRatedMovies = (page) =>{
+        getTopRatedMovies(page,"es").then((res) =>{
             setTopRatedMovies(res);
         })
     }
 
-    const showPopularSeries = () =>{
-        getPopularTvSeries(2, "es").then((res) =>{
+    const showPopularSeries = (page) =>{
+        getPopularTvSeries(page, "es").then((res) =>{
             setPopularMovies(res);
         })
     }
 
-    const showMoviesByGenre = () =>{
-        discoverMoviesByGenreId(27, "es", 1).then((res) =>{
+    const showMoviesByGenre = (genreId) =>{
+        discoverMoviesByGenreId(genreId, "es", 1).then((res) =>{
             setTerrorMovies(res);
         })
     }
     
-    const showSeriesByGenre = () =>{
-        discoverTvSeriesByGenreId(9648,"es",1).then((res) => {
+    const showSeriesByGenre = (genreId) =>{
+        discoverTvSeriesByGenreId(genreId,"es",1).then((res) => {
             setMysterySeries(res);
         })
     }

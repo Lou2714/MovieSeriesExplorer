@@ -5,7 +5,7 @@ const options = {
         "Authorization": `Bearer ${API_KEY}`
     }
 }
-
+//Devuelve los generos de las series
 export const getTvSeriesGenres = (language) =>{
     const request = fetch(`https://api.themoviedb.org/3/genre/tv/list?language=${language}`, options);
     const response = request.then((res) =>{
@@ -28,6 +28,8 @@ export const getTopRatedTvSeries = (page,language) =>{
     const request = fetch(`https://api.themoviedb.org/3/tv/top_rated?language=${language}&page=${page}`, options);
     const response = request.then((res) =>{
         return res.json();
+    }).then((res) =>{
+        return res.results
     })
     return response;
 }

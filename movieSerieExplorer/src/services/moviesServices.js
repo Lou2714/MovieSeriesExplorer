@@ -5,7 +5,7 @@ const options = {
         "Authorization": `Bearer ${API_KEY}`
     }
 }
-
+//Devuelve los generos de las peliculas
 export const getMoviesGenres = (language) => {
     const request = fetch(`https://api.themoviedb.org/3/genre/movie/list?language=${language}`, options);
     const response = request.then((res) =>{
