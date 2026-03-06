@@ -10,8 +10,7 @@ import { useParams, useLocation  } from "react-router";
 
 const MediaDetailsById = ({}) => {
 
-    const [moviesDetails, setMoviesDetails] = useState(null);
-    const [serieDetails, setSeriesDetails] = useState(null);
+    const [mediaDetails, setMediaDetails] = useState(null);
 
     let { id } = useParams();
     let { pathname } = useLocation();
@@ -23,36 +22,35 @@ const MediaDetailsById = ({}) => {
     const getMediaDetailsById = () =>{
 
         if (pathname.toLowerCase().includes("movies")) {
-            getMovieById(id).then((res) =>{
-                setMoviesDetails(res);
+            getMovieById(id,"es").then((res) =>{
+                setMediaDetails(res);
             })
         }
-        if (pathname.toLowerCase().includes("movies")) {
-            getTvSerieById(id).then((res) =>{
-                setSeriesDetails(res);
+        if (pathname.toLowerCase().includes("tvseries")) {
+            getTvSerieById(id,"es").then((res) =>{
+                setMediaDetails(res);
             })
         }
-        
     }
     
 
     return(
         <div>
             <div className="flex flex-col items-center">
-                <h1 className="text-Wild-Sand-100 font-bold text-lg pt-2 pb-5">Wicked: For Good</h1>
-                <PosterDetail />
+                <h1 className="text-Wild-Sand-100 font-bold text-lg pt-2 px-5 text-center">{mediaDetails?.title || mediaDetails?.name}</h1>
+                <h2 className="text-Wild-Sand-100 font-light text-center pb-5">{mediaDetails?.original_title || mediaDetails?.original_name}</h2>
+                <PosterDetail key={mediaDetails?.id} poster={`https://image.tmdb.org/t/p/original${mediaDetails?.poster_path}`}/>
             </div>
-            <div className="flex flex-row gap-2 justify-center py-5 flex-wrap">
-                    <MediaGenres genres={"Fantasía"}/>
-                    <MediaGenres genres={"Aventura"}/>
-                    <MediaGenres genres={"Romance"}/>
+            <div className="flex flex-row gap-2 justify-center m-auto py-5 flex-wrap w-5/6">
+                {
+                    mediaDetails?.genres?.map((details) =>
+                        (<MediaGenres key={details.id} genres={details.name}/>
+                    ))
+                }
             </div>
             <div className="text-Wild-Sand-100 flex flex-col items-start gap-2 px-5">
                 <p className="font-semibold">Descripción</p>
-                <p className="text-justify">Mientras la multitud alza su clamor contra la Bruja Malvada, 
-                    Glinda y Elphaba deberán unirse una vez más. Con su singular amistad convertida en el 
-                    punto de inflexión de su futuro, tendrán que mirarse a los ojos con honestidad y 
-                    compasión para afrontar su transformación personal y cambiar el destino de todo Oz.
+                <p className="text-justify">{mediaDetails?.overview || "No hay descripción disponible"}
                 </p>
                 
             </div>
