@@ -47,7 +47,7 @@ const Movies = () => {
 
     return(
         <div>
-            <Navbar />
+            {/* <Navbar /> */}
             <h1 className="text-center font-bold text-xl text-Wild-Sand-100">Películas</h1>
             <div className="flex flex-row overflow-x-auto scroll-smooth gap-3 py-3 w-4/5 m-auto">
                 <CategoryFilterBtn category={"Destacados"}/>
@@ -58,9 +58,9 @@ const Movies = () => {
                 }
             </div>
             <div className="pb-5">
-                <CategorySection title={"Películas que te recomendamos ver"} mediaResource={topRatedMovies}/>
-                <CategorySection title={"Películas que te harán llorar"} mediaResource={dramaMovies}/>
-                <CategorySection title={"Películas para ver en familia"} mediaResource={familyMovies}/>
+                <CategorySection title={"Películas que te recomendamos ver"} mediaResource={topRatedMovies} mediaType={"movies"}/>
+                <CategorySection title={"Películas que te harán llorar"} mediaResource={dramaMovies} mediaType={"movies"}/>
+                <CategorySection title={"Películas para ver en familia"} mediaResource={familyMovies} mediaType={"movies"}/>
             </div>
         </div>
     )

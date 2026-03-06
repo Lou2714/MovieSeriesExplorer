@@ -51,6 +51,7 @@ const MobileMenu = ({ isOpen, onCloseMenu }) =>{
                             icon={item.icon}
                             page={item.page}
                             routePath={item.path}
+                            onCloseMenu={onCloseMenu}
                         />
                     ))
                 }

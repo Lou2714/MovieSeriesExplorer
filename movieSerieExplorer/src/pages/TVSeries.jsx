@@ -42,7 +42,7 @@ const TVSeries = () => {
 
     return(
         <div>
-            <Navbar />
+            {/* <Navbar /> */}
             <h1 className="text-center font-bold text-xl text-Wild-Sand-100">Series</h1>
             <div className="flex flex-row overflow-x-auto scroll-smooth gap-3 py-3 w-4/5 m-auto">
             <CategoryFilterBtn category={"Destacados"}/>
@@ -53,9 +53,9 @@ const TVSeries = () => {
             }
             </div>
             <div className="pb-5">
-                <CategorySection title={"Series que no te puedes perder"} mediaResource={topRatedSeries} />
-                <CategorySection title={"Acción y aventura"} mediaResource={actionSeries} />
-                <CategorySection title={"Series de crimen"} mediaResource={crimeSeries} />
+                <CategorySection title={"Series que no te puedes perder"} mediaResource={topRatedSeries} mediaType={"tvseries"}/>
+                <CategorySection title={"Acción y aventura"} mediaResource={actionSeries} mediaType={"tvseries"}/>
+                <CategorySection title={"Series de crimen"} mediaResource={crimeSeries} mediaType={"tvseries"}/>
             </div>
         </div>
     )

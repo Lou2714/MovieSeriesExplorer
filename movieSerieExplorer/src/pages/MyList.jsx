@@ -5,7 +5,7 @@ import PosterCard from "../components/PosterCard";
 const MyList = () => {
     return(
         <div>
-            <Navbar />
+            {/* <Navbar /> */}
             <h1 className="text-center font-bold text-xl text-Wild-Sand-100">Mi lista</h1>
             <div className="flex flex-row flex-wrap gap-y-2 justify-center-safe py-5">
                 <PosterCard />

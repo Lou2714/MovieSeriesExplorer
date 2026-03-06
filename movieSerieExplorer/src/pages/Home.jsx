@@ -46,13 +46,13 @@ const Home = () => {
 
     return(
         <div>
-            <Navbar />
+            {/* <Navbar /> */}
             <h1 className="text-center font-bold text-xl text-Wild-Sand-100">Inicio</h1>
             <div className="pb-5">
-                <CategorySection title={"Películas recomendadas"} mediaResource={topRatedMovies}/>
-                <CategorySection title={"Series populares"} mediaResource={popularSeries}/>
-                <CategorySection title={"Películas que te harán gritar"} mediaResource={terrorMovies}/>
-                <CategorySection title={"El misterio te espera"} mediaResource={mysterySeries}/>
+                <CategorySection title={"Películas recomendadas"} mediaResource={topRatedMovies} mediaType={"movies"}/>
+                <CategorySection title={"Series populares"} mediaResource={popularSeries} mediaType={"tvseries"}/>
+                <CategorySection title={"Películas que te harán gritar"} mediaResource={terrorMovies} mediaType={"movies"}/>
+                <CategorySection title={"El misterio te espera"} mediaResource={mysterySeries} mediaType={"tvseries"}/>
             </div>
         </div>
     )

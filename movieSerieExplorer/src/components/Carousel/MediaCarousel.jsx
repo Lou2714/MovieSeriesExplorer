@@ -4,7 +4,7 @@ import { GrPrevious, GrNext } from "react-icons/gr";
 
 import { useState, useEffect } from 'react'
 
-const MediaCarousel = ({ mediaResource }) =>{
+const MediaCarousel = ({ mediaResource, mediaType }) =>{
     const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: 'start' })
     const [prevButtonDisabled, setPrevButtonDisabled] = useState(true)
     const [nextButtonDisabled, setNextButtonDisabled] = useState(true)
@@ -32,7 +32,7 @@ const MediaCarousel = ({ mediaResource }) =>{
                         {
                             mediaResource?.map((element) =>(
                                 <div className="flex-initial basis-full" key={element.id}>
-                                    <PosterCard key={element.id} poster={`https://image.tmdb.org/t/p/original${element.poster_path}`} />
+                                    <PosterCard key={element.id} mediaId={element.id} mediaType={mediaType} poster={`https://image.tmdb.org/t/p/original${element.poster_path}`} />
                                 </div>
                             ))
                         }

@@ -5,7 +5,7 @@ import PosterCard from "../components/PosterCard";
 const SearchPage = () =>{
     return(
         <div>
-            <Navbar />
+            {/* <Navbar /> */}
             <SearchBar/>
             <div className="flex flex-row flex-wrap gap-y-2 justify-center-safe py-10 ">
                 <PosterCard />
