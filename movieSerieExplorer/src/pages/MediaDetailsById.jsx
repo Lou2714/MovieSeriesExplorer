@@ -2,7 +2,40 @@ import PosterDetail from "../components/MediaDetails/PosterDetail";
 import MediaGenres from "../components/MediaDetails/MediaGenres";
 import AddToMyListBtn from "../components/MediaDetails/AddToListBtn";
 
+import { getMovieById } from "../services/moviesServices";
+import { getTvSerieById } from "../services/tvSeriesServices";
+
+import { useState, useEffect } from "react";
+import { useParams, useLocation  } from "react-router";
+
 const MediaDetailsById = ({}) => {
+
+    const [moviesDetails, setMoviesDetails] = useState(null);
+    const [serieDetails, setSeriesDetails] = useState(null);
+
+    let { id } = useParams();
+    let { pathname } = useLocation();
+
+    useEffect(() => {
+        getMediaDetailsById();
+    },[id, pathname]);
+
+    const getMediaDetailsById = () =>{
+
+        if (pathname.toLowerCase().includes("movies")) {
+            getMovieById(id).then((res) =>{
+                setMoviesDetails(res);
+            })
+        }
+        if (pathname.toLowerCase().includes("movies")) {
+            getTvSerieById(id).then((res) =>{
+                setSeriesDetails(res);
+            })
+        }
+        
+    }
+    
+
     return(
         <div>
             <div className="flex flex-col items-center">

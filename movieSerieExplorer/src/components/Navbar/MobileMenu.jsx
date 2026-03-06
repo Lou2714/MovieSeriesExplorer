@@ -1,5 +1,6 @@
 import { FiHome,FiSearch,FiTv,FiX, FiBookmark } from "react-icons/fi";
 import { BiMoviePlay } from "react-icons/bi";
+import { FaRegHeart } from "react-icons/fa";
 
 import NavItemsLinks from "./NavLinks";
 
@@ -28,9 +29,9 @@ const MobileMenu = ({ isOpen, onCloseMenu }) =>{
             path: "/search"
         },
         {
-            page: "Mi lista",
-            icon: <FiBookmark/>,
-            path: "/mylist"
+            page: "Favoritos",
+            icon: <FaRegHeart/>,
+            path: "/myfavorites"
         },
     ]
 

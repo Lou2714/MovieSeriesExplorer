@@ -18,22 +18,12 @@ const AppRoutes = () =>{
                 <Route path="/" element={<Layout/>} >
                     <Route index element={<Home/>} />
 
-                    <Route path="movies">
-                        <Route index element={<Movies/>} />
-                        <Route path=":id" element={<MediaDetailsById/>} />
-                    </Route>
-                    <Route path="tvseries">
-                        <Route index element={<TVSeries/>} />
-                        <Route path=":id" element={<MediaDetailsById/>} />
-                    </Route>
-                    <Route path="search">
-                        <Route index element={<SearchPage/>} />
-                        <Route path=":id" element={<MediaDetailsById/>} />
-                    </Route>
-                    <Route path="mylist">
-                        <Route index element={<MyList/>} />
-                        <Route path=":id" element={<MediaDetailsById/>} />
-                    </Route>
+                    <Route path="movies" element={<Movies/>} />
+                    <Route path="tvseries" element={<TVSeries/>}/>
+                    <Route path="search" element={<SearchPage/>} />
+                    <Route path="myfavorites" element={<MyList/>} />
+                    
+                    <Route path=":mediaType/:id" element={<MediaDetailsById/>} />
                 </Route>
             </Routes>
         </BrowserRouter>
