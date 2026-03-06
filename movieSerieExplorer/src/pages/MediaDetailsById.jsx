@@ -21,12 +21,12 @@ const MediaDetailsById = ({}) => {
 
     const getMediaDetailsById = () =>{
 
-        if (pathname.toLowerCase().includes("movies")) {
+        if (pathname.toLowerCase().includes("movie")) {
             getMovieById(id,"es").then((res) =>{
                 setMediaDetails(res);
             })
         }
-        if (pathname.toLowerCase().includes("tvseries")) {
+        if (pathname.toLowerCase().includes("tv")) {
             getTvSerieById(id,"es").then((res) =>{
                 setMediaDetails(res);
             })
@@ -39,7 +39,7 @@ const MediaDetailsById = ({}) => {
             <div className="flex flex-col items-center">
                 <h1 className="text-Wild-Sand-100 font-bold text-lg pt-2 px-5 text-center">{mediaDetails?.title || mediaDetails?.name}</h1>
                 <h2 className="text-Wild-Sand-100 font-light text-center pb-5">{mediaDetails?.original_title || mediaDetails?.original_name}</h2>
-                <PosterDetail key={mediaDetails?.id} poster={`https://image.tmdb.org/t/p/original${mediaDetails?.poster_path}`}/>
+                <PosterDetail key={mediaDetails?.id} poster={mediaDetails?.poster_path}/>
             </div>
             <div className="flex flex-row gap-2 justify-center m-auto py-5 flex-wrap w-5/6">
                 {

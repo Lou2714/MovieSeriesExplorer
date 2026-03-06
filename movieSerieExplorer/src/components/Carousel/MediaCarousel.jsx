@@ -32,7 +32,7 @@ const MediaCarousel = ({ mediaResource, mediaType }) =>{
                         {
                             mediaResource?.map((element) =>(
                                 <div className="flex-initial basis-full" key={element.id}>
-                                    <PosterCard key={element.id} mediaId={element.id} mediaType={mediaType} poster={`https://image.tmdb.org/t/p/original${element.poster_path}`} />
+                                    <PosterCard key={element.id} mediaId={element.id} mediaType={mediaType} poster={element.poster_path} />
                                 </div>
                             ))
                         }

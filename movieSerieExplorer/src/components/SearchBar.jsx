@@ -1,9 +1,17 @@
 import { FiSearch } from "react-icons/fi";
 
-const SearchBar = () =>{
+import { useState } from "react";
+
+const SearchBar = ({ onSearch }) =>{
+
+    const [searchValue, setSearchValue] = useState("");
 
     const handlerSubmit = (e) =>{
         e.preventDefault();
+        if (searchValue.trim()) {
+            onSearch(searchValue);
+            setSearchValue("");
+        }
     }
 
     return(
@@ -11,8 +19,11 @@ const SearchBar = () =>{
             rounded-md  focus-within:bg-Shark-600"
             onSubmit={handlerSubmit}>
             <FiSearch className="text-Wild-Sand-100 text-xl"/>
-            <input type="text" placeholder="Buscar películas o series..."
-                className="w-full focus:outline-none text-Wild-Sand-100"/>
+            <input type="text" 
+                placeholder="Buscar películas o series..."
+                className="w-full focus:outline-none text-Wild-Sand-100"
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}/>
         </form>
     )
 }
