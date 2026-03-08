@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router";
+//import { saveScrollPosition } from "../utils/sessionStorage";
 
 const PosterCard = ({ poster, mediaId, mediaType }) =>{
     let navigate = useNavigate();
 
     const handlerClick = () =>{
         navigate(`/${mediaType}/${mediaId}`)
+        //saveScrollPosition(window.scrollY);
     }
     return(
         <div className="relative w-40 h-60 rounded-lg px-1 " onClick={handlerClick}>

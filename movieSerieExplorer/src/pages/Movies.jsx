@@ -23,9 +23,12 @@ const Movies = () => {
         showTopRatedMovies();
         showMoviesByGenre(18,setDramaMovies, 4);
         showMoviesByGenre(10751,setFamilyMovies, 3);
-        showFilteredMovies();
 
-    },[moviesByGenres, searchParams]);
+    },[]);
+
+    useEffect(() =>{
+        showFilteredMovies();
+    },[searchParams]);
 
     const getGenres = () =>{
         getMoviesGenres("es")

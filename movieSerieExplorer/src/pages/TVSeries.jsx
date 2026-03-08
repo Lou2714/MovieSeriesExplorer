@@ -24,9 +24,12 @@ const TVSeries = () => {
         showTopRatedSeries(1);
         showSeriesByGenre(80, setCrimeSeries, 1);
         showSeriesByGenre(10759, setActionSeries, 2);
-        showFilteredSeries();
+        
+    },[]);
 
-    },[seriesByGenres, searchParams]);
+    useEffect(() => {
+        showFilteredSeries();
+    },[searchParams]);
 
     const getSeriesGenres = () =>{
         getTvSeriesGenres("es").then((res) =>{
@@ -47,7 +50,6 @@ const TVSeries = () => {
             console.error(error);
         })
     }
-
     const handlerClickFilterBtn = (genreId) =>{
         if (genreId == 0) {
             setSearchParams({});

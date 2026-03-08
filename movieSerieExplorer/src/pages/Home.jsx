@@ -18,7 +18,7 @@ const Home = () => {
         showPopularSeries(2);
         showMoviesByGenre(27);
         showSeriesByGenre(9648);
-    },[topRatedMovies,popularSeries, terrorMovies, mysterySeries]);
+    },[]);
 
     const showTopRatedMovies = (page) =>{
         getTopRatedMovies(page,"es").then((res) =>{
