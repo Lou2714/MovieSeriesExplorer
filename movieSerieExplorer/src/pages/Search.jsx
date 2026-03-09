@@ -1,5 +1,6 @@
 import SearchBar from "../components/SearchBar";
 import PosterCard from "../components/PosterCard";
+import Spinner from "../components/Feedback/Spinner";
 
 import { searchMulti } from "../services/searchService";
 import { getPopularTvSeries } from "../services/tvSeriesServices";
@@ -19,6 +20,8 @@ const SearchPage = () =>{
     const [searchInputValue, setSearchInputValue] = useState(searchQuery || "");
     const [searchDebounce, setSearchDebounce] = useState(searchInputValue);
 
+    const [isLoading, setIsLoading] = useState(false);
+
     //Cada vez que ocurra un cambio en el valor que escribe el usuario se ejecuta este efecto
     useEffect(() =>{
         const getSearchBarValue = setTimeout(() =>{
@@ -32,6 +35,7 @@ const SearchPage = () =>{
     //Lo ideal es actualizar la URL después del debounce.
     //Por lo tanto, cada que se actualice el valor de searchDebounce se ejecuta este efecto
     useEffect(() =>{
+        setIsLoading(true);
         //Si searchDebounce está vacío se muestra el "home"
         if (!searchDebounce) {
             setSearchParams({});
@@ -53,47 +57,55 @@ const SearchPage = () =>{
                 return result.media_type != "person"
             })
             setResultsQuery(filteredResults);
-        })
+        }).finally(() => setIsLoading(false));
         
     }
 
     const showPopularSeries = () =>{
         getPopularTvSeries(1, "es").then((res) => {
             setShowSeries(res);
-        })
+        }).finally(() => setIsLoading(false));
     }
 
     return(
         <div>
             <SearchBar onSearch={handlerSearch} value={searchInputValue}/>
             {
-                //Equivale a searchQuery == "", si no hay nada devuelve true
-                !searchQuery ? (
-                    <div className="flex flex-col gap-y-2 py-5">
-                        <h1 className="text-Wild-Sand-100 text-center text-lg font-semibold">Series populares</h1>
-                        <div className="flex flex-row flex-wrap gap-y-2 justify-center-safe">
-                            {
-                                showSeries?.map((serie) =>(
-                                    <PosterCard key={serie.id} mediaId={serie.id} poster={serie.poster_path} mediaType={"tvseries"}/>
-                                ))
-                            }
-                        </div>
-                    </div>
-                    
+                isLoading ? (
+                    <Spinner />
                 ) : (
-                    <div className="flex flex-col gap-y-2 py-5">
-                        <h1 className="text-Wild-Sand-100 text-center text-lg font-semibold">{`Resultado de ${searchQuery}`}</h1>
-                        <div className="flex flex-row flex-wrap gap-y-2 justify-center-safe">
-                            {
-                                resultsQuery?.map((result) =>(
-                                    <PosterCard key={result.id} mediaId={result.id} poster={result.poster_path} mediaType={result.media_type}/>
-                                ))
-                            }
-                        </div>
+                    <div>
+                        {
+                            //Equivale a searchQuery == "", si no hay nada devuelve true
+                            !searchQuery ? (
+                                <div className="flex flex-col gap-y-2 py-5">
+                                    <h1 className="text-Wild-Sand-100 text-center text-lg font-semibold">Series populares</h1>
+                                    <div className="flex flex-row flex-wrap gap-y-2 justify-center-safe">
+                                        {
+                                            showSeries?.map((serie) =>(
+                                                <PosterCard key={serie.id} mediaId={serie.id} poster={serie.poster_path} mediaType={"tvseries"}/>
+                                            ))
+                                        }
+                                    </div>
+                                </div>
+                                
+                            ) : (
+                                <div className="flex flex-col gap-y-2 py-5">
+                                    <h1 className="text-Wild-Sand-100 text-center text-lg font-semibold">{`Resultado de ${searchQuery}`}</h1>
+                                    <div className="flex flex-row flex-wrap gap-y-2 justify-center-safe">
+                                        {
+                                            resultsQuery?.map((result) =>(
+                                                <PosterCard key={result.id} mediaId={result.id} poster={result.poster_path} mediaType={result.media_type}/>
+                                            ))
+                                        }
+                                    </div>
+                                </div>
+                            )
+                        }
                     </div>
-                    
                 )
             }
+            
         </div>
     )
 }

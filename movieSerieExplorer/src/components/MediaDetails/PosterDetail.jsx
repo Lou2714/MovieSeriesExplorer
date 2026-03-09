@@ -1,4 +1,3 @@
-import Wicked from "../../assets/wickedForGood.jpg"
 
 const PosterDetail = ({ poster }) =>{
     return(

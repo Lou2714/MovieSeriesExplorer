@@ -1,5 +1,5 @@
-import Navbar from "../components/Navbar/Navbar";
 import CategorySection from "../components/CategorySection";
+import Spinner from "../components/Feedback/Spinner";
 
 import { getTopRatedMovies, discoverMoviesByGenreId } from "../services/moviesServices";
 import { getPopularTvSeries, discoverTvSeriesByGenreId } from "../services/tvSeriesServices";
@@ -13,47 +13,65 @@ const Home = () => {
     const [terrorMovies, setTerrorMovies] = useState(null);
     const [mysterySeries, setMysterySeries] = useState(null);
 
+    const [isLoading, setIsLoading] = useState(false);
+
     useEffect(() =>{
-        showTopRatedMovies(1);
-        showPopularSeries(2);
-        showMoviesByGenre(27);
-        showSeriesByGenre(9648);
+        setIsLoading(true);
+        fetchAllData();
     },[]);
 
+    const fetchAllData = () =>{
+        Promise.all([
+            showTopRatedMovies(1),
+            showPopularSeries(2),
+            showMoviesByGenre(27),
+            showSeriesByGenre(9648)
+        ]).finally(() => {
+            setIsLoading(false);
+        });
+    }
+
     const showTopRatedMovies = (page) =>{
-        getTopRatedMovies(page,"es").then((res) =>{
+        return getTopRatedMovies(page,"es").then((res) =>{
             setTopRatedMovies(res);
         })
     }
 
     const showPopularSeries = (page) =>{
-        getPopularTvSeries(page, "es").then((res) =>{
+        return getPopularTvSeries(page, "es").then((res) =>{
             setPopularMovies(res);
         })
     }
 
     const showMoviesByGenre = (genreId) =>{
-        discoverMoviesByGenreId(genreId, "es", 1).then((res) =>{
+        return discoverMoviesByGenreId(genreId, "es", 1).then((res) =>{
             setTerrorMovies(res);
         })
     }
     
     const showSeriesByGenre = (genreId) =>{
-        discoverTvSeriesByGenreId(genreId,"es",1).then((res) => {
+        return discoverTvSeriesByGenreId(genreId,"es",1).then((res) => {
             setMysterySeries(res);
         })
     }
 
     return(
         <div>
-            {/* <Navbar /> */}
             <h1 className="text-center font-bold text-xl text-Wild-Sand-100">Inicio</h1>
-            <div className="pb-5">
-                <CategorySection title={"Películas recomendadas"} mediaResource={topRatedMovies} mediaType={"movies"}/>
-                <CategorySection title={"Series populares"} mediaResource={popularSeries} mediaType={"tvseries"}/>
-                <CategorySection title={"Películas que te harán gritar"} mediaResource={terrorMovies} mediaType={"movies"}/>
-                <CategorySection title={"El misterio te espera"} mediaResource={mysterySeries} mediaType={"tvseries"}/>
-            </div>
+            {
+                isLoading ? (
+                    <div>
+                        <Spinner />
+                    </div>
+                ) : (
+                    <div className="pb-5">
+                        <CategorySection title={"Películas recomendadas"} mediaResource={topRatedMovies} mediaType={"movies"}/>
+                        <CategorySection title={"Series populares"} mediaResource={popularSeries} mediaType={"tvseries"}/>
+                        <CategorySection title={"Películas que te harán gritar"} mediaResource={terrorMovies} mediaType={"movies"}/>
+                        <CategorySection title={"El misterio te espera"} mediaResource={mysterySeries} mediaType={"tvseries"}/>
+                    </div>
+                )
+            }
         </div>
     )
 }
