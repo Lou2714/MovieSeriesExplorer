@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router";
 
 import Home from "../pages/Home";
 import Movies from "../pages/Movies";
-import MyList from "../pages/MyList";
+import MyFavorites from "../pages/MyFavorites";
 import SearchPage from "../pages/Search";
 import TVSeries from "../pages/TVSeries";
 import MediaDetailsById from "../pages/MediaDetailsById";
@@ -21,7 +21,7 @@ const AppRoutes = () =>{
                     <Route path="movies" element={<Movies/>} />
                     <Route path="tvseries" element={<TVSeries/>}/>
                     <Route path="search" element={<SearchPage/>} />
-                    <Route path="myfavorites" element={<MyList/>} />
+                    <Route path="myfavorites" element={<MyFavorites/>} />
                     
                     <Route path=":mediaType/:id" element={<MediaDetailsById/>} />
                 </Route>

@@ -1,11 +1,24 @@
-import Navbar from "../components/Navbar/Navbar";
 import PosterCard from "../components/PosterCard";
 
+import { getFavorites } from "../utils/favorites";
 
-const MyList = () => {
+import { useEffect, useState } from "react";
+
+
+const MyFavorites = () => {
+
+    const [favorites, setFavorites] = useState(null);
+
+    useEffect(() =>{
+
+    },[]);
+
+    const showFavorites = () => {
+        
+    }
+
     return(
         <div>
-            {/* <Navbar /> */}
             <h1 className="text-center font-bold text-xl text-Wild-Sand-100">Mi lista</h1>
             <div className="flex flex-row flex-wrap gap-y-2 justify-center-safe py-5">
                 <PosterCard />
@@ -17,4 +30,4 @@ const MyList = () => {
     )
 }
 
-export default MyList;
+export default MyFavorites;

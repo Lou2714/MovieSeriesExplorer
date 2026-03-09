@@ -4,6 +4,7 @@ import AddToMyListBtn from "../components/MediaDetails/AddToListBtn";
 
 import { getMovieById } from "../services/moviesServices";
 import { getTvSerieById } from "../services/tvSeriesServices";
+import { addFavoriteMedia, checkIsFavorite, removeFromFavorites } from "../utils/favorites";
 
 import { useState, useEffect } from "react";
 import { useParams, useLocation  } from "react-router";
@@ -11,16 +12,18 @@ import { useParams, useLocation  } from "react-router";
 const MediaDetailsById = ({}) => {
 
     const [mediaDetails, setMediaDetails] = useState(null);
+    const [isFavorite, setIsFavorite] = useState(false);
 
     let { id } = useParams();
     let { pathname } = useLocation();
 
     useEffect(() => {
         getMediaDetailsById();
+        isFavoriteAdded();
     },[id, pathname]);
 
     const getMediaDetailsById = () =>{
-
+    //Dependiendo de si el pathname incluye movie o tv se realiza la busqueda en la api, ya que no lo sé de antemano
         if (pathname.toLowerCase().includes("movie")) {
             getMovieById(id,"es").then((res) =>{
                 setMediaDetails(res);
@@ -32,10 +35,39 @@ const MediaDetailsById = ({}) => {
             })
         }
     }
-    
+    const isFavoriteAdded = () => {
+        const mediaType = verifyMediaType();
+        //verifica si este medio ha sido añadido a favoritos, si es así se establece cambia el estado isFavorite
+        if (checkIsFavorite(id, mediaType)) {
+            setIsFavorite(true)
+        }else{
+            setIsFavorite(false);
+        }
+        
+    }
+    const handlerAddToMyFavorites = () => {
+        //Cuando le de click actualiza el estado para mostrar un corazón de agregado a favorito
+        setIsFavorite(prev => !prev);
+        const mediaType = verifyMediaType();
+        //Si ha sido añadido a favoritos al dar click se elimina de favoritos
+        if (isFavorite) {
+            removeFromFavorites(id);
+        }else{
+            //Si no ha sido añadido a favoritos se agrega al array en localStorage
+            addFavoriteMedia(id, mediaType, mediaDetails?.poster_path);
+        }
+    }
+    const verifyMediaType = () => {
+        if (pathname.toLowerCase().includes("movie")) {
+            return "movies"
+        }
+        if (pathname.toLowerCase().includes("tv")) {
+            return "tvseries"
+        }
+    }
 
     return(
-        <div>
+        <div className="pb-2">
             <div className="flex flex-col items-center">
                 <h1 className="text-Wild-Sand-100 font-bold text-lg pt-2 px-5 text-center">{mediaDetails?.title || mediaDetails?.name}</h1>
                 <h2 className="text-Wild-Sand-100 font-light text-center pb-5">{mediaDetails?.original_title || mediaDetails?.original_name}</h2>
@@ -55,7 +87,7 @@ const MediaDetailsById = ({}) => {
                 
             </div>
             <div className="px-5 py-3 flex justify-center">
-                <AddToMyListBtn />
+                <AddToMyListBtn onAddFavorites={handlerAddToMyFavorites} isFavorite={isFavorite} />
             </div>
         </div>
     )
