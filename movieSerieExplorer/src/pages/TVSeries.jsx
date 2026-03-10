@@ -2,6 +2,7 @@ import PosterCard from "../components/PosterCard";
 import CategorySection from "../components/CategorySection";
 import CategoryFilterBtn from "../components/Category/CategoryFilter";
 import Spinner from "../components/Feedback/Spinner";
+import ErrorMessage from "../components/Feedback/ErrorMessage";
 
 import { getTvSeriesGenres, getTopRatedTvSeries, discoverTvSeriesByGenreId } from "../services/tvSeriesServices";
 
@@ -19,17 +20,28 @@ const TVSeries = () => {
     const [seriesByGenres, setSeriesByGenres] = useState(null);
 
     const [isLoading, setIsLoading] = useState(false);
+    const [hasError, setHasError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     const genreIdSelected = Number(searchParams.get("genre")) || 0;
 
     useEffect(() => {
         setIsLoading(true);
+        setHasError(false);
+        setErrorMessage("");
         fetchAllData();
     },[]);
 
     useEffect(() => {
         setIsLoading(true);
-        showFilteredSeries().finally(() => setIsLoading(false));
+        setHasError(false);
+        setErrorMessage("");
+        showSeriesByGenre(genreIdSelected, setSeriesByGenres, 1)
+            .catch((error) => {
+                setHasError(true);
+                setErrorMessage(error.message);
+            })
+            .finally(() => setIsLoading(false));
     },[searchParams]);
 
     const fetchAllData = () => {
@@ -38,7 +50,12 @@ const TVSeries = () => {
             showTopRatedSeries(1),
             showSeriesByGenre(80, setCrimeSeries, 1),
             showSeriesByGenre(10759, setActionSeries, 2)
-        ]).finally(() => {
+        ])
+        .catch((error) => {
+            setHasError(true);
+            setErrorMessage(error.message);
+        })
+        .finally(() => {
             setIsLoading(false);
         });
     }
@@ -50,12 +67,12 @@ const TVSeries = () => {
     }
     const showTopRatedSeries = (page) =>{
         return getTopRatedTvSeries(page, "es").then((res) =>{
-            setTopRatedSeries(res);
+            setTopRatedSeries(res.results);
         })
     }
     const showSeriesByGenre = (genreId, setter, page) =>{
         return discoverTvSeriesByGenreId(genreId, "es", page).then((res) =>{
-            setter(res);
+            setter(res.results);
         })
     }
     const handlerClickFilterBtn = (genreId) =>{
@@ -64,10 +81,6 @@ const TVSeries = () => {
         }else{
             setSearchParams({ genre: genreId }, { replace: true });
         }
-    }
-
-    const showFilteredSeries = () =>{
-        return showSeriesByGenre(genreIdSelected, setSeriesByGenres, 1);
     }
 
     return(
@@ -92,20 +105,24 @@ const TVSeries = () => {
                         }
                         </div>
                         {
-                            genreIdSelected == 0 ? (
-                                <div className="pb-5">
-                                    <CategorySection title={"Series que no te puedes perder"} mediaResource={topRatedSeries} mediaType={"tvseries"}/>
-                                    <CategorySection title={"Acción y aventura"} mediaResource={actionSeries} mediaType={"tvseries"}/>
-                                    <CategorySection title={"Series de crimen"} mediaResource={crimeSeries} mediaType={"tvseries"}/>
-                                </div>
+                            hasError ? (
+                                <ErrorMessage message={errorMessage} />
                             ) : (
-                                <div className="flex flex-row flex-wrap justify-center-safe gap-y-2 py-5">
-                                    {
-                                        seriesByGenres?.map((series) => (
-                                            <PosterCard key={series.id} mediaId={series.id} mediaType={"tvseries"} poster={series.poster_path}/>
-                                        ))
-                                    }
-                                </div>
+                                genreIdSelected == 0 ? (
+                                    <div className="pb-5">
+                                        <CategorySection title={"Series que no te puedes perder"} mediaResource={topRatedSeries} mediaType={"tvseries"}/>
+                                        <CategorySection title={"Acción y aventura"} mediaResource={actionSeries} mediaType={"tvseries"}/>
+                                        <CategorySection title={"Series de crimen"} mediaResource={crimeSeries} mediaType={"tvseries"}/>
+                                    </div>
+                                ) : (
+                                    <div className="flex flex-row flex-wrap justify-center-safe gap-y-2 py-5">
+                                        {
+                                            seriesByGenres?.map((series) => (
+                                                <PosterCard key={series.id} mediaId={series.id} mediaType={"tvseries"} poster={series.poster_path}/>
+                                            ))
+                                        }
+                                    </div>
+                                )
                             )
                         }
                     </div>

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 const MyFavorites = () => {
 
-    const [favorites, setFavorites] = useState(null);
+    const [favorites, setFavorites] = useState([]);
 
     useEffect(() => {
         showFavorites();
@@ -22,9 +22,13 @@ const MyFavorites = () => {
             <h1 className="text-center font-bold text-xl text-Wild-Sand-100">Mi lista</h1>
             <div className="flex flex-row flex-wrap gap-y-2 justify-center-safe py-5">
                 {
-                    favorites?.map((fav) => (
-                        <PosterCard key={fav.id} mediaId={fav.id} mediaType={fav.mediaType} poster={fav.poster_path}/>
-                    ))
+                    favorites.length === 0 ? (
+                        <p className="text-Wild-Sand-100 text-center">No tienes favoritos todavía</p>
+                    ) : (
+                        favorites.map((fav) => (
+                            <PosterCard key={fav.id} mediaId={fav.id} mediaType={fav.mediaType} poster={fav.poster_path}/>
+                        ))
+                    )
                 }
             </div>
         </div>

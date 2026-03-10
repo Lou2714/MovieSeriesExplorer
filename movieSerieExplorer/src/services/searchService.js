@@ -10,6 +10,11 @@ export const searchMulti = (query, language, page) =>{
     const request = fetch(`https://api.themoviedb.org/3/search/multi?query=${query}&language=${language}&page=${page}`, options);
     const response = request.then((res) =>{
         return res.json();
+    }).then((res) => {
+        if (res.success === false) {
+            throw new Error("No se pudieron cargar los datos");
+        }
+        return res;
     })
     return response;
 }

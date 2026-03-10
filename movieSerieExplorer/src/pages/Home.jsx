@@ -1,5 +1,6 @@
 import CategorySection from "../components/CategorySection";
 import Spinner from "../components/Feedback/Spinner";
+import ErrorMessage from "../components/Feedback/ErrorMessage";
 
 import { getTopRatedMovies, discoverMoviesByGenreId } from "../services/moviesServices";
 import { getPopularTvSeries, discoverTvSeriesByGenreId } from "../services/tvSeriesServices";
@@ -14,9 +15,13 @@ const Home = () => {
     const [mysterySeries, setMysterySeries] = useState(null);
 
     const [isLoading, setIsLoading] = useState(false);
+    const [hasError, setHasError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     useEffect(() =>{
         setIsLoading(true);
+        setHasError(false);
+        setErrorMessage("");
         fetchAllData();
     },[]);
 
@@ -26,32 +31,37 @@ const Home = () => {
             showPopularSeries(2),
             showMoviesByGenre(27),
             showSeriesByGenre(9648)
-        ]).finally(() => {
+        ])
+        .catch((error) => {
+            setHasError(true);
+            setErrorMessage(error.message);
+        })
+        .finally(() => {
             setIsLoading(false);
         });
     }
 
     const showTopRatedMovies = (page) =>{
         return getTopRatedMovies(page,"es").then((res) =>{
-            setTopRatedMovies(res);
+            setTopRatedMovies(res.results);
         })
     }
 
     const showPopularSeries = (page) =>{
         return getPopularTvSeries(page, "es").then((res) =>{
-            setPopularMovies(res);
+            setPopularMovies(res.results);
         })
     }
 
     const showMoviesByGenre = (genreId) =>{
         return discoverMoviesByGenreId(genreId, "es", 1).then((res) =>{
-            setTerrorMovies(res);
+            setTerrorMovies(res.results);
         })
     }
     
     const showSeriesByGenre = (genreId) =>{
         return discoverTvSeriesByGenreId(genreId,"es",1).then((res) => {
-            setMysterySeries(res);
+            setMysterySeries(res.results);
         })
     }
 
@@ -63,6 +73,8 @@ const Home = () => {
                     <div>
                         <Spinner />
                     </div>
+                ) : hasError ? (
+                    <ErrorMessage message={errorMessage}/>
                 ) : (
                     <div className="pb-5">
                         <CategorySection title={"Películas recomendadas"} mediaResource={topRatedMovies} mediaType={"movies"}/>

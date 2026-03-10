@@ -2,6 +2,7 @@ import PosterCard from "../components/PosterCard";
 import CategorySection from "../components/CategorySection";
 import CategoryFilterBtn from "../components/Category/CategoryFilter";
 import Spinner from "../components/Feedback/Spinner";
+import ErrorMessage from "../components/Feedback/ErrorMessage";
 
 import { getMoviesGenres, getTopRatedMovies, discoverMoviesByGenreId } from "../services/moviesServices";
 
@@ -18,17 +19,28 @@ const Movies = () => {
     const [moviesByGenres, setMoviesByGenres] = useState(null);
 
     const [isLoading, setIsLoading] = useState(false);
+    const [hasError, setHasError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     const genreIdSelected = Number(searchParams.get("genre")) || 0;
 
     useEffect(() =>{
         setIsLoading(true);
+        setHasError(false);
+        setErrorMessage("");
         fetchAllData();
     },[]);
 
     useEffect(() =>{
         setIsLoading(true);
-        showFilteredMovies().finally(() => setIsLoading(false));
+        setHasError(false);
+        setErrorMessage("");
+        showMoviesByGenre(genreIdSelected, setMoviesByGenres, 1)
+            .catch((error) => {
+                setHasError(true);
+                setErrorMessage(error.message);
+            })
+            .finally(() => setIsLoading(false));
 
     },[searchParams]);
 
@@ -38,7 +50,12 @@ const Movies = () => {
             showTopRatedMovies(),
             showMoviesByGenre(18,setDramaMovies, 4),
             showMoviesByGenre(10751,setFamilyMovies, 3)
-        ]).finally(() => {
+        ])
+        .catch((error) => {
+            setHasError(true);
+            setErrorMessage(error.message);
+        })
+        .finally(() => {
             setIsLoading(false);
         });
     }
@@ -52,13 +69,13 @@ const Movies = () => {
 
     const showTopRatedMovies = () => {
         return getTopRatedMovies(5,"es").then((res) => {
-            setTopRatedMovies(res);
+            setTopRatedMovies(res.results);
         })
     }
 
     const showMoviesByGenre = (genreId, setter, page) =>{
         return discoverMoviesByGenreId(genreId, "es", page).then((res) =>{
-            setter(res);
+            setter(res.results);
         })
     }
 
@@ -70,11 +87,7 @@ const Movies = () => {
             setSearchParams({ genre: genreId }, { replace: true });
         }
     }
-
-    const showFilteredMovies = () =>{
-        return showMoviesByGenre(genreIdSelected, setMoviesByGenres, 1)
-    }
-
+    
 
     return(
         <div>
@@ -98,27 +111,30 @@ const Movies = () => {
                             }
                         </div>
                         {
-                            genreIdSelected == 0 ? (
-                                <div className="pb-5">
-                                    <CategorySection title={"Películas que te recomendamos ver"} mediaResource={topRatedMovies} mediaType={"movies"}/>
-                                    <CategorySection title={"Películas que te harán llorar"} mediaResource={dramaMovies} mediaType={"movies"}/>
-                                    <CategorySection title={"Películas para ver en familia"} mediaResource={familyMovies} mediaType={"movies"}/>
-                                </div>
+                            hasError ? (
+                                <ErrorMessage message={errorMessage} />
                             ) : (
-                                <div className="flex flex-row flex-wrap justify-center-safe gap-y-2 py-5">
-                                    {
-                                        moviesByGenres?.map((movie) => (
-                                            <PosterCard key={movie.id} mediaId={movie.id} mediaType={"movies"} poster={movie.poster_path}/>
-                                        ))
-                                    }
-                                </div>
+                                genreIdSelected == 0 ? (
+                                    <div className="pb-5">
+                                        <CategorySection title={"Películas que te recomendamos ver"} mediaResource={topRatedMovies} mediaType={"movies"}/>
+                                        <CategorySection title={"Películas que te harán llorar"} mediaResource={dramaMovies} mediaType={"movies"}/>
+                                        <CategorySection title={"Películas para ver en familia"} mediaResource={familyMovies} mediaType={"movies"}/>
+                                    </div>
+                                ) : (
+                                    <div className="flex flex-row flex-wrap justify-center-safe gap-y-2 py-5">
+                                        {
+                                            moviesByGenres?.map((movie) => (
+                                                <PosterCard key={movie.id} mediaId={movie.id} mediaType={"movies"} poster={movie.poster_path}/>
+                                            ))
+                                        }
+                                    </div>
+                                )
                             )
                         }
+                        
                     </div>
                 )
             }
-            
-            
         </div>
     )
 }

@@ -10,6 +10,11 @@ export const getMoviesGenres = (language) => {
     const request = fetch(`https://api.themoviedb.org/3/genre/movie/list?language=${language}`, options);
     const response = request.then((res) =>{
         return res.json();
+    }).then((res) => {
+        if (res.success === false) {
+            throw new Error("No se pudieron cargar los datos");
+        }
+        return res;
     })
     return response;
 }
@@ -18,6 +23,12 @@ export const getMovieById = (movieId, language) =>{
     const request = fetch(`https://api.themoviedb.org/3/movie/${movieId}?language=${language}`, options);
     const response = request.then((res) =>{
         return res.json();
+    }).then((res) => {
+        if (res.success === false) {
+            throw new Error("La información de esta película no está disponible.");
+        }
+        //retorna la promesa con la que trabajo en la parte visual
+        return res;
     })
     return response;
 }
@@ -26,8 +37,11 @@ export const getTopRatedMovies = (page, language) =>{
     const request = fetch(`https://api.themoviedb.org/3/movie/top_rated?language=${language}&page=${page}`, options);
     const response = request.then((res) =>{
         return res.json();
-    }).then((res) =>{
-        return res.results
+    }).then((res) => {
+        if (res.success === false) {
+            throw new Error("No se pudieron cargar los datos");
+        }
+        return res;
     })
     return response;
 }
@@ -36,8 +50,11 @@ export const discoverMoviesByGenreId = (genreId, language, page) =>{
     const request = fetch(`https://api.themoviedb.org/3/discover/movie?language=${language}&page=${page}&with_genres=${genreId}&sort_by=popularity.desc`, options);
     const response = request.then((res) =>{
         return res.json();
-    }).then((res) =>{
-        return res.results
+    }).then((res) => {
+        if (res.success === false) {
+            throw new Error("No se pudieron cargar los datos");
+        }
+        return res;
     })
     
     return response;

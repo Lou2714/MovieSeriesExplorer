@@ -2,6 +2,7 @@ import PosterDetail from "../components/MediaDetails/PosterDetail";
 import MediaGenres from "../components/MediaDetails/MediaGenres";
 import AddToMyListBtn from "../components/MediaDetails/AddToListBtn";
 import Spinner from "../components/Feedback/Spinner";
+import ErrorMessage from "../components/Feedback/ErrorMessage";
 
 import { getMovieById } from "../services/moviesServices";
 import { getTvSerieById } from "../services/tvSeriesServices";
@@ -12,16 +13,20 @@ import { useParams, useLocation  } from "react-router";
 
 const MediaDetailsById = ({}) => {
 
-    const [mediaDetails, setMediaDetails] = useState(null);
+    const [mediaDetails, setMediaDetails] = useState({});
     const [isFavorite, setIsFavorite] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-
+    const [hasError, setHasError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     let { id } = useParams();
     let { pathname } = useLocation();
 
     useEffect(() => {
         setIsLoading(true);
+        setHasError(false);
+        setErrorMessage("");
+
         getMediaDetailsById();
         isFavoriteAdded();
     },[id, pathname]);
@@ -31,12 +36,22 @@ const MediaDetailsById = ({}) => {
         if (pathname.toLowerCase().includes("movie")) {
             getMovieById(id,"es").then((res) =>{
                 setMediaDetails(res);
-            }).finally(() => setIsLoading(false));
+            })
+            .catch((error) => {
+                setHasError(true);
+                setErrorMessage(error.message);
+            })
+            .finally(() => setIsLoading(false));
         }
         if (pathname.toLowerCase().includes("tv")) {
             getTvSerieById(id,"es").then((res) =>{
                 setMediaDetails(res);
-            }).finally(() => setIsLoading(false));
+            })
+            .catch((error) => {
+                setHasError(true);
+                setErrorMessage(error.message);
+            })
+            .finally(() => setIsLoading(false));
         }
     }
     const isFavoriteAdded = () => {
@@ -68,6 +83,10 @@ const MediaDetailsById = ({}) => {
         if (pathname.toLowerCase().includes("tv")) {
             return "tvseries"
         }
+    }
+
+    if (hasError) {
+        return <ErrorMessage message={errorMessage}/>
     }
 
     return(
