@@ -95,25 +95,27 @@ const MediaDetailsById = ({}) => {
                 isLoading ? (<Spinner />) : 
                 (
                 <div className="pb-2">
-                    <div className="flex flex-col items-center">
-                        <h1 className="text-Wild-Sand-100 font-bold text-lg pt-2 px-5 text-center">{mediaDetails?.title || mediaDetails?.name}</h1>
-                        <h2 className="text-Wild-Sand-100 font-light text-center pb-5">{mediaDetails?.original_title || mediaDetails?.original_name}</h2>
+                    <h1 className="text-Wild-Sand-100 font-bold text-lg md:text-2xl lg:text-3xl pt-2 px-5 text-center">{mediaDetails?.title || mediaDetails?.name}</h1>
+                    <h2 className="text-Wild-Sand-100 font-light text-center md:text-lg lg:text-xl px-8 pb-5">{mediaDetails?.original_title || mediaDetails?.original_name}</h2>
+                    <div className="flex flex-col items-center md:flex-row md:justify-center-safe md:gap-3">
                         <PosterDetail key={mediaDetails?.id} poster={mediaDetails?.poster_path}/>
-                    </div>
-                    <div className="flex flex-row gap-2 justify-center m-auto py-5 flex-wrap w-5/6">
-                        {
-                            mediaDetails?.genres?.map((details) =>
-                                (<MediaGenres key={details.id} genres={details.name}/>
-                            ))
-                        }
-                    </div>
-                    <div className="text-Wild-Sand-100 flex flex-col items-start gap-2 px-5">
-                        <p className="font-semibold">Descripción</p>
-                        <p className="text-justify">{mediaDetails?.overview || "No hay descripción disponible"}
-                        </p>
+                        <div className="flex flex-col items-center-safe lg:items-start md:w-lg lg:w-4/6">
+                            <div className="flex flex-row gap-2 justify-center py-5 flex-wrap w-5/6 lg:justify-start lg:px-5">
+                                {
+                                    mediaDetails?.genres?.map((details) =>
+                                        (<MediaGenres key={details.id} genres={details.name}/>
+                                    ))
+                                }
+                            </div>
+                            <div className="text-Wild-Sand-100 flex flex-col items-start gap-2 px-5 ">
+                                <p className="font-semibold lg:text-lg">Descripción</p>
+                                <p className="text-justify md:text-lg lg:text-xl">{mediaDetails?.overview || "No hay descripción disponible"}
+                                </p>
+                            </div>
+                        </div>
                         
                     </div>
-                    <div className="px-5 py-3 flex justify-center">
+                    <div className="px-5 py-3 flex justify-center md:py-8">
                         <AddToMyListBtn onAddFavorites={handlerAddToMyFavorites} isFavorite={isFavorite} />
                     </div>
                 </div>

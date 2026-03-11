@@ -27,7 +27,7 @@ const MediaCarousel = ({ mediaResource, mediaType }) =>{
 
     return (
         <div className="embla relative">
-            <div className="overflow-hidden  px-3" ref={emblaRef}>
+            <div className="overflow-hidden" ref={emblaRef}>
                 <div className="flex touch-pan-x touch-pinch-zoom">
                         {
                             mediaResource?.map((element) =>(
@@ -39,12 +39,12 @@ const MediaCarousel = ({ mediaResource, mediaType }) =>{
                 </div>
             </div>
             <button className={`embla__prev absolute inset-y-0 left-0 text-xl active:bg-Shark-800 active:opacity-50 
-                hover:bg-Shark-800 hover:opacity-50 cursor-pointer px-1 ${prevButtonDisabled ? " text-Shark-700":"text-Wild-Sand-100"}`} 
+                hover:bg-Shark-800 hover:opacity-50 cursor-pointer px-1 lg:px-3 ${prevButtonDisabled ? " text-Shark-700":"text-Wild-Sand-100"}`} 
                 onClick={goToPrev} disabled={prevButtonDisabled}>
                 <GrPrevious />
             </button>
             <button className={`embla__next absolute inset-y-0 right-0 text-xl active:bg-Shark-800 active:opacity-50 
-                hover:bg-Shark-800 hover:opacity-50 cursor-pointer ${nextButtonDisabled ? "text-Shark-700":"text-Wild-Sand-100"}`} 
+                hover:bg-Shark-800 hover:opacity-50 cursor-pointer px-1 lg:px-3 ${nextButtonDisabled ? "text-Shark-700":"text-Wild-Sand-100"}`} 
                 onClick={goToNext} disabled={nextButtonDisabled}>
                 <GrNext />
             </button>

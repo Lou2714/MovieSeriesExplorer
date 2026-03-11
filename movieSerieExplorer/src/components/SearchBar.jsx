@@ -13,7 +13,7 @@ const SearchBar = ({ onSearch, value }) =>{
             <FiSearch className="text-Wild-Sand-100 text-xl"/>
             <input type="text" 
                 placeholder="Buscar películas o series..."
-                className="w-full focus:outline-none text-Wild-Sand-100"
+                className="w-full focus:outline-none text-Wild-Sand-100 md:text-xl"
                 value={value}
                 onChange={(e) => onSearch(e.target.value)}/>
         </form>

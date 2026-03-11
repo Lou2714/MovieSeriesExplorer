@@ -89,8 +89,8 @@ const SearchPage = () =>{
                             //Equivale a searchQuery == "", si no hay nada devuelve true
                             !searchQuery ? (
                                 <div className="flex flex-col gap-y-2 py-5">
-                                    <h1 className="text-Wild-Sand-100 text-center text-lg font-semibold">Series populares</h1>
-                                    <div className="flex flex-row flex-wrap gap-y-2 justify-center-safe">
+                                    <h1 className="text-Wild-Sand-100 text-center text-lg md:text-2xl lg:text-3xl md:pb-3 font-semibold">Series populares</h1>
+                                    <div className="flex flex-row flex-wrap gap-y-2 md:gap-y-3 justify-center-safe ">
                                         {
                                             showSeries?.map((serie) =>(
                                                 <PosterCard key={serie.id} mediaId={serie.id} poster={serie.poster_path} mediaType={"tvseries"}/>
@@ -101,11 +101,11 @@ const SearchPage = () =>{
                                 
                             ) : (
                                 <div className="flex flex-col gap-y-2 py-5">
-                                    <h1 className="text-Wild-Sand-100 text-center px-8 text-lg font-semibold"> Resultados para "<span>{searchQuery}</span>"</h1>
-                                    <div className="flex flex-row flex-wrap gap-y-2 justify-center-safe">
+                                    <h1 className="text-Wild-Sand-100 text-center px-8 text-lg md:text-2xl md:pb-3 lg:text-3xl font-semibold"> Resultados para "<span>{searchQuery}</span>"</h1>
+                                    <div className="flex flex-row flex-wrap gap-y-2 md:gap-y-3 justify-center-safe">
                                         {
                                             resultsQuery.length === 0 ? (
-                                                <p className="text-Wild-Sand-100 text-center pt-12">No se encontraron resultados</p>
+                                                <p className="text-Wild-Sand-100 text-center pt-12 lg:text-lg">No se encontraron resultados</p>
                                             ) : (
                                                 resultsQuery.map((result) =>(
                                                     <PosterCard key={result.id} mediaId={result.id} poster={result.poster_path} mediaType={result.media_type}/>

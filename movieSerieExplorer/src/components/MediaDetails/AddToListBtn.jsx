@@ -11,13 +11,13 @@ const AddToMyListBtn = ({ onAddFavorites, isFavorite }) =>{
             onClick={onAddFavorites}
             >
             {isFavorite ? (
-                <div className="flex flex-row gap-1 items-center">
+                <div className="flex flex-row gap-1 items-center md:text-lg">
                     <FaHeart className="text-xl"/>
                     <p>Añadido a favoritos</p>
                 </div>
                 ) : 
                 (
-                    <div className="flex flex-row gap-1 items-center">
+                    <div className="flex flex-row gap-1 items-center md:text-lg">
                     <FaRegHeart className="text-xl"/>
                     <p>Añadir a favoritos</p>
                     </div>

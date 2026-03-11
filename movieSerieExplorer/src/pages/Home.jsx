@@ -66,8 +66,8 @@ const Home = () => {
     }
 
     return(
-        <div>
-            <h1 className="text-center font-bold text-xl text-Wild-Sand-100">Inicio</h1>
+        <div className="px-5 md:px-8 lg:px-16">
+            <h1 className="text-center font-bold text-xl text-Wild-Sand-100 md:text-2xl lg:text-3xl">Inicio</h1>
             {
                 isLoading ? (
                     <div>

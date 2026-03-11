@@ -84,14 +84,14 @@ const TVSeries = () => {
     }
 
     return(
-        <div>
-            <h1 className="text-center font-bold text-xl text-Wild-Sand-100">Series</h1>
+        <div className="px-5 md:px-8 lg:px-16">
+            <h1 className="text-center font-bold text-xl md:text-2xl lg:text-3xl text-Wild-Sand-100">Series</h1>
             {
                 isLoading ? (
                     <Spinner />
                 ) : (
                     <div>
-                        <div className="flex flex-row overflow-x-auto scroll-smooth gap-3 py-3 w-4/5 m-auto">
+                        <div className="flex flex-row overflow-x-auto scroll-smooth gap-3 py-3 w-5/6 m-auto lg:w-full lg:pt-8 custom-scrollbar">
                         <CategoryFilterBtn category={"Destacados"} categoryId={0} categoryIdSelected={genreIdSelected} onclickFilterBtn={handlerClickFilterBtn}/>
                         {
                             tvSeriesGenres?.map((serie) =>(
@@ -109,7 +109,7 @@ const TVSeries = () => {
                                 <ErrorMessage message={errorMessage} />
                             ) : (
                                 genreIdSelected == 0 ? (
-                                    <div className="pb-5">
+                                    <div className="pb-5 lg:pt-6">
                                         <CategorySection title={"Series que no te puedes perder"} mediaResource={topRatedSeries} mediaType={"tvseries"}/>
                                         <CategorySection title={"Acción y aventura"} mediaResource={actionSeries} mediaType={"tvseries"}/>
                                         <CategorySection title={"Series de crimen"} mediaResource={crimeSeries} mediaType={"tvseries"}/>

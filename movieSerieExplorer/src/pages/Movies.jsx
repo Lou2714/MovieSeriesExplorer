@@ -90,14 +90,14 @@ const Movies = () => {
     
 
     return(
-        <div>
-            <h1 className="text-center font-bold text-xl text-Wild-Sand-100">Películas</h1>
+        <div className="px-5 md:px-8 lg:px-16">
+            <h1 className="text-center font-bold text-xl md:text-2xl lg:text-3xl text-Wild-Sand-100">Películas</h1>
             {
                 isLoading ? (
                     <Spinner />
                 ) : (
                     <div>
-                        <div className="flex flex-row overflow-x-auto scroll-smooth gap-3 py-3 w-4/5 m-auto">
+                        <div className="flex flex-row overflow-x-auto scroll-smooth gap-3 py-3 w-5/6 m-auto lg:w-full lg:pt-8 custom-scrollbar">
                             <CategoryFilterBtn category={"Destacados"} categoryId={0} categoryIdSelected={genreIdSelected} onclickFilterBtn={handlerClickFilterBtn}/>
                             {
                                 movieGenres?.map((genre) =>(
@@ -115,7 +115,7 @@ const Movies = () => {
                                 <ErrorMessage message={errorMessage} />
                             ) : (
                                 genreIdSelected == 0 ? (
-                                    <div className="pb-5">
+                                    <div className="pb-5 lg:pt-6">
                                         <CategorySection title={"Películas que te recomendamos ver"} mediaResource={topRatedMovies} mediaType={"movies"}/>
                                         <CategorySection title={"Películas que te harán llorar"} mediaResource={dramaMovies} mediaType={"movies"}/>
                                         <CategorySection title={"Películas para ver en familia"} mediaResource={familyMovies} mediaType={"movies"}/>

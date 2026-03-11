@@ -17,3 +17,8 @@
   --color-Wild-Sand-100: #f5f3f4;
   --font-DMSans: "DM Sans", sans-serif;
 }
+
+.custom-scrollbar{
+  scrollbar-color: var(--color-Biloba-Flower-400) var(--color-Shark-800);
+  scrollbar-width: thin;
+}
