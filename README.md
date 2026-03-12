@@ -5,10 +5,9 @@ Aplicación web para explorar películas y series utilizando la API de TMDB.
 ## Descripción
 Movies & Series Explorer es una aplicación web construida con React que permite explorar series y películas. Los usuarios pueden buscar títulos, filtrar por género y guardar películas o series en favoritos.
 ## Enlace
-
+[Enlace a proyecto](https://movie-series-explorer.vercel.app/)
 ## Funcionalidades
-- Descubrir las películas mejor puntuadas
-- Descubrir las series más populares
+- Descubrir series y películas
 - Buscar películas y series
 - Filtrar por género
 - Ver detalles de cada película o serie
